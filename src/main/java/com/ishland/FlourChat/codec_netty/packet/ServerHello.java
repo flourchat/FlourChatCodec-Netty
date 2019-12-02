@@ -1,13 +1,13 @@
 package com.ishland.FlourChat.codec_netty.packet;
 
-public class ClientHello {
+public class ServerHello {
 
     public static byte PACKET_ID = 0x01;
-    public static byte SENDER_TYPE = Type.CLIENT;
+    public static byte SENDER_TYPE = Type.SERVER;
 
     public String message;
 
-    public ClientHello (String message) {
+    public ServerHello (String message) {
         this.message = message;
     }
 }
