@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'mvn deploy -Dregistry=https://maven.pkg.github.com/flourchat -Dtoken=$GITHUB_PUBLISH_TOKEN'
+                sh 'mvn deploy'
             }
         }
 
