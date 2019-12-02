@@ -18,4 +18,4 @@ jobs:
     - name: Deploy to GitHub Packages
       run: mvn deploy -Dregistry=https://maven.pkg.github.com/flourchat -Dtoken=$GH_TOKEN
       env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        GH_TOKEN: ${ secrets.GH_TOKEN }
