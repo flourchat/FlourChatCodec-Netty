@@ -41,4 +41,11 @@
 			</plugin>
 		</plugins>
 	</build>
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub FlourChat Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/flourchat/FlourChatCodec-Netty</url>
+		</repository>
+	</distributionManagement>
 </project>
