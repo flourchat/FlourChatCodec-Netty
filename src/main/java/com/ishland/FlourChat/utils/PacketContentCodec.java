@@ -16,9 +16,6 @@ public class PacketContentCodec {
             .getLogger ("Packet Content Codec");
 
     public static byte[] encode (List<Object> list) {
-        if (PacketContentCodec.logger.isDebugEnabled ())
-            PacketContentCodec.logger
-                    .debug ("Encoding " + list);
         ByteBuf buffer = Unpooled.buffer ();
         for (Object obj : list) {
             buffer.writeBytes (obj.toString ()
@@ -28,16 +25,23 @@ public class PacketContentCodec {
         }
         byte[] result = buffer.array ();
         buffer.release ();
+        if (PacketContentCodec.logger.isTraceEnabled ())
+            PacketContentCodec.logger.trace (
+                    "Encoded " + list + " into " + result);
         return result;
     }
 
     public static List<String> decode (byte[] in) {
+
         String str = new String (in,
                 Charset.forName ("UTF-8"));
         String[] outa = str.split ("<");
         List<String> list = new ArrayList<> ();
         for (String s : outa)
             list.add (s);
+        if (PacketContentCodec.logger.isTraceEnabled ())
+            PacketContentCodec.logger.trace (
+                    "Decoded " + in + " into " + list);
         return list;
     }
 }

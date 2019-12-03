@@ -3,6 +3,9 @@ package com.ishland.FlourChat.codec_netty.codec;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.ishland.FlourChat.codec_netty.packet.ClientHello;
 import com.ishland.FlourChat.codec_netty.packet.GenericPacket;
 import com.ishland.FlourChat.utils.PacketContentCodec;
@@ -14,6 +17,9 @@ import io.netty.handler.codec.MessageToMessageCodec;
 
 public class ClientHelloCodec extends
         MessageToMessageCodec<GenericPacket, ClientHello> {
+
+    private static final Logger logger = LogManager
+            .getLogger ();
 
     @Override
     protected void encode (ChannelHandlerContext ctx,
@@ -30,6 +36,9 @@ public class ClientHelloCodec extends
         buffer.resetReaderIndex ();
         output.content = buffer.array ();
         buffer.release ();
+        if (ClientHelloCodec.logger.isTraceEnabled ())
+            ClientHelloCodec.logger.trace (
+                    "Encoded " + msg + " into " + output);
         out.add (output);
     }
 
@@ -44,6 +53,9 @@ public class ClientHelloCodec extends
         if (list.size () > 1)
             return;
         ClientHello output = new ClientHello (list.get (0));
+        if (ClientHelloCodec.logger.isTraceEnabled ())
+            ClientHelloCodec.logger.trace (
+                    "Decoded " + msg + " into " + output);
         out.add (output);
     }
 

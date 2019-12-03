@@ -8,4 +8,13 @@ public class GenericPacket {
     public byte senderType;
     public short length;
     public byte[] content;
+
+    @Override
+    public String toString () {
+        return "GenericPacket{" + "version=" + this.version
+                + ",type=" + this.type + ",packetId="
+                + this.packetId + ",senderType="
+                + this.senderType + ",length=" + this.length
+                + ",content=" + this.content + "}";
+    }
 }

@@ -2,6 +2,9 @@ package com.ishland.FlourChat.codec_netty.codec;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.ishland.FlourChat.codec_netty.packet.GenericPacket;
 
 import io.netty.buffer.ByteBuf;
@@ -12,6 +15,9 @@ import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 
 public class GenericPacketCodec extends
         MessageToMessageCodec<BinaryWebSocketFrame, GenericPacket> {
+
+    private static final Logger logger = LogManager
+            .getLogger ();
 
     @Override
     protected void encode (ChannelHandlerContext ctx,
@@ -25,6 +31,10 @@ public class GenericPacketCodec extends
         buffer.writeShort (msg.length);
         buffer.writeZero (2);
         buffer.writeBytes (msg.content);
+        if (GenericPacketCodec.logger.isTraceEnabled ())
+            GenericPacketCodec.logger.trace ("Encoded "
+                    + msg + " into " + buffer.array ());
+        out.add (new BinaryWebSocketFrame (buffer));
     }
 
     @Override
@@ -48,6 +58,10 @@ public class GenericPacketCodec extends
         buffer.readShort ();
         packet.content = buffer.copy ().array ();
         buffer.release ();
+        msg.release ();
+        if (GenericPacketCodec.logger.isTraceEnabled ())
+            GenericPacketCodec.logger.trace ("Decoded "
+                    + buffer.array () + " into " + packet);
         out.add (packet);
     }
 

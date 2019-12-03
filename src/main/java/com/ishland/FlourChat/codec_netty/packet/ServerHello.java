@@ -10,4 +10,9 @@ public class ServerHello {
     public ServerHello (String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString () {
+        return "ServerHello{message=" + this.message + "}";
+    }
 }
