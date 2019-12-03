@@ -13,17 +13,18 @@ public class Register {
 
     private static final Logger logger = LogManager
             .getLogger ("FlourChat codec register");
+    @SuppressWarnings ("rawtypes")
+    private static Set<Class<? extends MessageToMessageCodec>> codecs = new Reflections (
+            "com.ishland.FlourChat.codec_netty.codec")
+                    .getSubTypesOf (
+                            MessageToMessageCodec.class);
 
     @SuppressWarnings ({
             "rawtypes", "deprecation"
     })
     public static void register (ChannelPipeline ch) {
         Register.logger.debug ("Registering codecs...");
-        Reflections reflection = new Reflections ("");
-        Set<Class<? extends MessageToMessageCodec>> codecs = reflection
-                .getSubTypesOf (
-                        MessageToMessageCodec.class);
-        for (Class<? extends MessageToMessageCodec> codec : codecs)
+        for (Class<? extends MessageToMessageCodec> codec : Register.codecs)
             try {
                 ch.addLast (codec.getName (),
                         codec.newInstance ());
