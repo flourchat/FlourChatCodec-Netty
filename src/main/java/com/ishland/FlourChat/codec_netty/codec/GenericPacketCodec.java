@@ -17,7 +17,7 @@ public class GenericPacketCodec extends
         MessageToMessageCodec<BinaryWebSocketFrame, GenericPacket> {
 
     private static final Logger logger = LogManager
-            .getLogger ();
+            .getLogger ("GenericPacketCodec");
 
     @Override
     protected void encode (ChannelHandlerContext ctx,

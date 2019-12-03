@@ -19,7 +19,7 @@ public class ServerHelloCodec extends
         MessageToMessageCodec<GenericPacket, ServerHello> {
 
     private static final Logger logger = LogManager
-            .getLogger ();
+            .getLogger ("GenericPacketCodec");
 
     @Override
     protected void encode (ChannelHandlerContext ctx,
